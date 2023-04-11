@@ -1,0 +1,104 @@
+<div class="row">
+    <div class="col-3">
+        <p>管理籍</p>
+    </div>
+    <div class="col-9">
+        <p>{{ item.department }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <p>製品名</p>
+    </div>
+    <div class="col-9">
+        <p>{{ item.name }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <p>フレーム</p>
+    </div>
+    <div class="col-9">
+        <p>{{ item.frame_code }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <p>中型</p>
+    </div>
+    <div class="col-9">
+        <p>{{ item.molds_code }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <p>成型機</p>
+    </div>
+    <div class="col-9">
+        <p>{{ item.molding_machine }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <p>フレーム高さ移動側</p>
+    </div>
+    <div class="col-9">
+        <p>{{ item.frame_height_moving_side }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <p>フレーム高さ固定側</p>
+    </div>
+    <div class="col-9">
+        <p>{{ item.frame_height_fix_side }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <p>取数</p>
+    </div>
+    <div class="col-9">
+        <p>{{ item.number_of }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <p>目付</p>
+    </div>
+    <div class="col-9">
+        <p>{{ item.weight }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <p>年齢</p>
+    </div>
+    <div class="col-9">
+        <p>{{ item.age }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <p>性別</p>
+    </div>
+    <div class="col-9">
+        <p>{{ item.get_sex_display }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <p>備考</p>
+    </div>
+    <div class="col-9">
+        <p>{{ item.memo|linebreaksbr }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <p>製造日</p>
+    </div>
+    <div class="col-9">
+        <p>{{ item.created_at|date:"Y/m/d G:i:s" }}</p>
+    </div>
+</div>
