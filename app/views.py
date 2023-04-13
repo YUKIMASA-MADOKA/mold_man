@@ -21,6 +21,9 @@ class ItemFilterView(FilterView):
     # デフォルトの並び順を新しい順とする
     queryset = Item.objects.all().order_by('-created_at')
 
+    # 初期値を設定したい2023.04.12 ⇒　検索の初期値は無くても良さそう（検索条件はセッションにキャッシュされるので、そのほうが便利かも）
+    #ItemFilter['initial'] = {'department':'沼津'}
+
     # django-filter用設定
     filterset_class = ItemFilter
     strict = False

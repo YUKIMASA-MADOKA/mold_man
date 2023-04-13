@@ -1,4 +1,6 @@
 from django.db import models
+from django.conf import settings
+
 from django.core import validators
 # Create your models here.
 
@@ -8,12 +10,7 @@ class Item(models.Model):
         (1, '男性'),
         (2, '女性'),
     )
-    IS_DRAWING_CHOICES = (
-        (1, 'はい'),
-    )
-    IS_NOT_OUR_MOLDS = (
-        (1, 'はい'),
-    )
+
     name = models.CharField(
 #        verbose_name='名前',
 #        max_length=200,
@@ -40,12 +37,13 @@ class Item(models.Model):
     created_at = models.DateTimeField(
 #        verbose_name='登録日',
         verbose_name='製造日',
-        auto_now_add=True
+#        auto_now_add=True
     )
-    department = models.CharField(verbose_name='管理籍',max_length=255)
+#    department = models.CharField(verbose_name='管理籍',max_length=255,choices=DEPARTMENT_CHOICES,default='焼津',)
+    department = models.CharField(verbose_name='管理籍',max_length=255,choices=settings.DEPARTMENT_CHOICES,default=settings.MY_DEPARTMENT,)
     is_drawing = models.BooleanField(verbose_name='製品図面',default=True,)
     is_not_our_molds = models.BooleanField(verbose_name='他社金型',default=True,)
-    frame_code = models.CharField(verbose_name='フレーム',max_length=255)
+    frame_code = models.CharField(verbose_name='フレーム',validators=[validators.RegexValidator(regex=r'^[a-zA-Z0-9_@\-\.]+$')],max_length=255)
     molds_code = models.CharField(verbose_name='中型',max_length=255)
 #    manufacture_date = models.DateField(blank=True, null=True)
 #    name = models.CharField(max_length=255)
@@ -54,6 +52,10 @@ class Item(models.Model):
     frame_height_fix_side = models.IntegerField(verbose_name='フレーム高さ固定側',blank=True, null=True)
     number_of  = models.DecimalField(verbose_name='取数',max_digits=8, decimal_places=1, blank=True, null=True)
     weight = models.DecimalField(verbose_name='目付',max_digits=8, decimal_places=1, blank=True, null=True)
+
+#        validators=[validators.RegexValidator(regex=r'^[a-zA-Z0-9_@\-\.]+$')],
+
+
 
     # 管理サイト上の表示設定
     def __str__(self):
