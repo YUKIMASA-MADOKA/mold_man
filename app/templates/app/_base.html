@@ -26,6 +26,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
+        {% if user.is_authenticated %}
         <div class="collapse navbar-collapse" id="Navber">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -36,6 +37,7 @@
                 </li>
             </ul>
         </div>
+        {% endif %}
         <!-- /.navbar-collapse -->
     </nav>
     {% block content %} 

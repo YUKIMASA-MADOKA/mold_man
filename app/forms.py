@@ -11,7 +11,7 @@ class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
 #        fields = ('department','name','frame_code','molds_code','molding_machine','frame_height_moving_side','number_of','weight','age','sex','memo','is_drawing',)
-        fields = ('department','is_drawing','is_not_our_molds','name','frame_code','molds_code','created_at','molding_machine','frame_height_moving_side','number_of','weight','memo',)
+        fields = ('department','is_drawing','is_not_our_molds','name','frame_code','mold_code','created_at','molding_machine','frame_height_moving_side','number_of','weight','memo',)
         widgets = {
 #                    'department': forms.TextInput(attrs={'placeholder':'記入例：焼津'}),
                     'department': forms.Select(),
@@ -19,7 +19,7 @@ class ItemForm(forms.ModelForm):
                     'is_not_our_molds': forms.CheckboxInput(),
                     'name': forms.TextInput(attrs={'placeholder':'記入例：HB-14A','onkeyup':'this.value = this.value.toUpperCase();'}),
                     'frame_code': forms.TextInput(attrs={'onkeyup':'this.value = this.value.toUpperCase();'}),
-                    'molds_code': forms.TextInput(attrs={'style':'text-transform: uppercase;','pattern':'^[0-9A-Za-z]+$;'}),
+                    'mold_code': forms.TextInput(attrs={'style':'text-transform: uppercase;','pattern':'^[0-9A-Za-z]+$;'}),
 #                    'created_at': forms.DateInput(),
                     'created_at': datetimepicker.DatePickerInput(
                         format='%Y-%m-%d',

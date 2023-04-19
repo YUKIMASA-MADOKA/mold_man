@@ -16,6 +16,7 @@ class Item(models.Model):
 #        max_length=200,
         verbose_name='製品名',
         max_length=255,
+        unique=True,
     )
     age = models.IntegerField(
         verbose_name='年齢',
@@ -44,7 +45,7 @@ class Item(models.Model):
     is_drawing = models.BooleanField(verbose_name='製品図面',default=True,)
     is_not_our_molds = models.BooleanField(verbose_name='他社金型',default=True,)
     frame_code = models.CharField(verbose_name='フレーム',validators=[validators.RegexValidator(regex=r'^[a-zA-Z0-9_@\-\.]+$')],max_length=255)
-    molds_code = models.CharField(verbose_name='中型',max_length=255)
+    mold_code = models.CharField(verbose_name='中型',max_length=255)
 #    manufacture_date = models.DateField(blank=True, null=True)
 #    name = models.CharField(max_length=255)
     molding_machine = models.CharField(verbose_name='成型機',max_length=255, blank=True, null=True)
@@ -52,9 +53,7 @@ class Item(models.Model):
     frame_height_fix_side = models.IntegerField(verbose_name='フレーム高さ固定側',blank=True, null=True)
     number_of  = models.DecimalField(verbose_name='取数',max_digits=8, decimal_places=1, blank=True, null=True)
     weight = models.DecimalField(verbose_name='目付',max_digits=8, decimal_places=1, blank=True, null=True)
-
 #        validators=[validators.RegexValidator(regex=r'^[a-zA-Z0-9_@\-\.]+$')],
-
 
 
     # 管理サイト上の表示設定
@@ -64,3 +63,4 @@ class Item(models.Model):
     class Meta:
         verbose_name = 'アイテム'
         verbose_name_plural = 'アイテム'
+
