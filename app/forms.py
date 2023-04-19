@@ -22,8 +22,9 @@ class ItemForm(forms.ModelForm):
                     'mold_code': forms.TextInput(attrs={'style':'text-transform: uppercase;','pattern':'^[0-9A-Za-z]+$;'}),
 #                    'created_at': forms.DateInput(),
                     'created_at': datetimepicker.DatePickerInput(
-                        format='%Y-%m-%d',
+#                        format='%Y-%m-%d',
                         options={
+                            'format': 'Y-M-D',
                             'locale': 'ja',
                             'dayViewHeaderFormat': 'YYYY年 MMMM',
                         }
