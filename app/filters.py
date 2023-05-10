@@ -11,6 +11,8 @@ class MyOrderingFilter(filters.OrderingFilter):
 
 class ItemFilter(FilterSet):
 
+    xxx_name = 'aaa'
+
 #    department = filters.CharFilter(label='管理籍', lookup_expr='contains')
     department = filters.ChoiceFilter(label='管理籍',choices=settings.DEPARTMENT_CHOICES,)
     name = filters.CharFilter(label='製品名', lookup_expr='contains')

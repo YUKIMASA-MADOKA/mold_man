@@ -43,7 +43,6 @@ class ItemFilterView(FilterView):
 
         return super().get(request, **kwargs)
 
-
 # 詳細画面
 #class ItemDetailView(LoginRequiredMixin, DetailView):
 class ItemDetailView(DetailView):

@@ -23,6 +23,7 @@ class ItemForm(forms.ModelForm):
 #                    'created_at': forms.DateInput(),
                     'created_at': datetimepicker.DatePickerInput(
 #                        format='%Y-%m-%d',
+# formatパラメータは将来無視されるようなのでoptionに書き換え
                         options={
                             'format': 'Y-M-D',
                             'locale': 'ja',

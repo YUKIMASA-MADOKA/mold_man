@@ -17,7 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path ,include
 
+from django.conf import settings # debug_toolbarで追加
+
 urlpatterns = [
+    path('excelapp1/', include('excelapp1.urls')),   # ←ここを追加    
     path('admin/', admin.site.urls),
     path('', include('app.urls')),
 ]
+
+# debug_toolbarで追加 2023.05.09
+if settings.DEBUG:# 追加
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
