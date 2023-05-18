@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'bootstrap_datepicker_plus',
     'debug_toolbar',
+    'import_export',
     'app',
     'excelapp1',
 ]

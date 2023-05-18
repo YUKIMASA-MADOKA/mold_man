@@ -1,8 +1,9 @@
+<!-- 詳細画面の表示項目（暫定で一覧と同じにしたが、必要に応じて追加）-->
 <div class="row">
     <div class="col-3">
         <p>管理籍</p>
     </div>
-    <div class="col-9">
+    <div class="col-3">
         <p>{{ item.department }}</p>
     </div>
 </div>
@@ -16,14 +17,6 @@
 </div>
 <div class="row">
     <div class="col-3">
-        <p>フレーム</p>
-    </div>
-    <div class="col-9">
-        <p>{{ item.frame_code }}</p>
-    </div>
-</div>
-<div class="row">
-    <div class="col-3">
         <p>中型</p>
     </div>
     <div class="col-9">
@@ -32,73 +25,81 @@
 </div>
 <div class="row">
     <div class="col-3">
-        <p>成型機</p>
+        <p>製造年月</p>
     </div>
     <div class="col-9">
-        <p>{{ item.molding_machine }}</p>
+        <p>{{ item.manufacture_date|date:"Y/m" }}</p>
     </div>
 </div>
 <div class="row">
     <div class="col-3">
-        <p>フレーム高さ移動側</p>
+        <p>外寸長さ</p>
     </div>
     <div class="col-9">
-        <p>{{ item.frame_height_moving_side }}</p>
+        <p>{{ item.outer_length }}</p>
     </div>
 </div>
 <div class="row">
     <div class="col-3">
-        <p>フレーム高さ固定側</p>
+        <p>外寸幅</p>
     </div>
     <div class="col-9">
-        <p>{{ item.frame_height_fix_side }}</p>
+        <p>{{ item.outer_width }}</p>
     </div>
 </div>
 <div class="row">
     <div class="col-3">
-        <p>取数</p>
+        <p>外寸高さ</p>
     </div>
     <div class="col-9">
-        <p>{{ item.number_of }}</p>
+        <p>{{ item.outer_height }}</p>
     </div>
 </div>
 <div class="row">
     <div class="col-3">
-        <p>目付</p>
+        <p>内寸長さ</p>
     </div>
     <div class="col-9">
-        <p>{{ item.weight }}</p>
-    </div>
-</div>
-<!--div class="row">
-    <div class="col-3">
-        <p>年齢</p>
-    </div>
-    <div class="col-9">
-        <p>{{ item.age }}</p>
+        <p>{{ item.inner_length }}</p>
     </div>
 </div>
 <div class="row">
     <div class="col-3">
-        <p>性別</p>
+        <p>内寸幅</p>
     </div>
     <div class="col-9">
-        <p>{{ item.get_sex_display }}</p>
-    </div>
-</div-->
-<div class="row">
-    <div class="col-3">
-        <p>備考</p>
-    </div>
-    <div class="col-9">
-        <p>{{ item.memo|linebreaksbr }}</p>
+        <p>{{ item.inner_width }}</p>
     </div>
 </div>
 <div class="row">
     <div class="col-3">
-        <p>製造日</p>
+        <p>内寸高さ</p>
     </div>
     <div class="col-9">
-        <p>{{ item.created_at|date:"Y/m/d G:i:s" }}</p>
+        <p>{{ item.inner_height }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <p>蓋</p>
+    </div>
+    <div class="col-9">
+        <p>{{ item.is_lid }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <p>蓋付</p>
+    </div>
+    <div class="col-9">
+        <p>{{ item.is_with_lid }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <p>用途</p>
+    </div>
+    <div class="col-9">
+        <p>{{ item.usage_notes|linebreaksbr }}</p>
     </div>
 </div>

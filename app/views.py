@@ -11,6 +11,9 @@ from .filters import ItemFilter
 from .forms import ItemForm
 from .models import Item
 
+# item_filter.htmlに配置したラジオの値を取得したい
+#from django.shortcuts import render
+#from django import forms
 
 # Create your views here.
 # 検索一覧画面
@@ -18,8 +21,11 @@ from .models import Item
 class ItemFilterView(FilterView):
     model = Item
 
-    # デフォルトの並び順を新しい順とする
-    queryset = Item.objects.all().order_by('-created_at')
+    # デフォルトの並び順を新しい順とする　⇒　管理籍、製品名順にする　⇒　検討中
+    # queryset = Item.objects.all().order_by('-created_at')
+    # queryset = Item.objects.all().order_by('department', 'name' )
+    # 表示量が多いと動作が重くなるので先頭300件のみの表示に制限
+    queryset = Item.objects.all()[:300]
 
     # 初期値を設定したい2023.04.12 ⇒　検索の初期値は無くても良さそう（検索条件はセッションにキャッシュされるので、そのほうが便利かも）
     #ItemFilter['initial'] = {'department':'沼津'}

@@ -2,3 +2,33 @@
     margin-top:3px;
     margin-bottom:3px;
 }
+
+/* 検索フォームのモーダルダイアログカスタマイズ用 */
+.area {
+    width: 480px; /* モーダルダイアログのサイズ内で収まるように */
+    margin: auto;
+    flex-wrap: wrap;
+    display: flex;
+}
+.tab_class {
+    width: calc(100%/3);    /* タブ数が3つなので */
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    display: block;
+    float: left;
+    order: -1;
+}
+input[name="tab_name"] {
+    display: none;
+}
+input:checked + .tab_class {
+    color: blue;
+}
+.content_class {
+    display: none;
+    width: 100%;
+}
+input:checked + .tab_class + .content_class {
+    display: block;
+}

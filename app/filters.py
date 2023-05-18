@@ -11,29 +11,52 @@ class MyOrderingFilter(filters.OrderingFilter):
 
 class ItemFilter(FilterSet):
 
-    xxx_name = 'aaa'
-
 #    department = filters.CharFilter(label='管理籍', lookup_expr='contains')
     department = filters.ChoiceFilter(label='管理籍',choices=settings.DEPARTMENT_CHOICES,)
     name = filters.CharFilter(label='製品名', lookup_expr='contains')
-    memo = filters.CharFilter(label='備考', lookup_expr='contains')
 
-    order_by = MyOrderingFilter(
+    # 外寸（長さ、幅、高さ） 
+    # gt ltが付かないFilterは検索には未使用（ラベル名を参照するために定義）
+#    outer_length = filters.NumberRengeFilter()
+    outer_length = filters.NumberFilter()
+    outer_length_gt = filters.NumberFilter(field_name='outer_length', lookup_expr='gt')
+    outer_length_lt = filters.NumberFilter(field_name='outer_length', lookup_expr='lt')
+    outer_width = filters.NumberFilter()
+    outer_width_gt = filters.NumberFilter(field_name='outer_width', lookup_expr='gt')
+    outer_width_lt = filters.NumberFilter(field_name='outer_width', lookup_expr='lt')
+    outer_height = filters.NumberFilter()
+    outer_height_gt = filters.NumberFilter(field_name='outer_height', lookup_expr='gt')
+    outer_height_lt = filters.NumberFilter(field_name='outer_height', lookup_expr='lt')
 
-        fields=(
-            ('name', 'name'),
-#            ('age', 'age'),
-            ('created_at', 'create_at'),
-        ),
-        field_labels={
-            'name': '製品名',
-#            'age': '年齢',
-            'created_at': '製造年月日',
-        },
-        label='並び順'
-    )
+    # 内寸（長さ、幅、高さ） 
+    inner_length = filters.NumberFilter()
+    inner_length_gt = filters.NumberFilter(field_name='inner_length', lookup_expr='gt')
+    inner_length_lt = filters.NumberFilter(field_name='inner_length', lookup_expr='lt')
+    inner_width = filters.NumberFilter()
+    inner_width_gt = filters.NumberFilter(field_name='inner_width', lookup_expr='gt')
+    inner_width_lt = filters.NumberFilter(field_name='inner_width', lookup_expr='lt')
+    inner_height = filters.NumberFilter()
+    inner_height_gt = filters.NumberFilter(field_name='inner_height', lookup_expr='gt')
+    inner_height_lt = filters.NumberFilter(field_name='inner_height', lookup_expr='lt')
+
+#    order_by = MyOrderingFilter(
+#
+#        fields=(
+#            ('name', 'name'),
+#        ),
+#       field_labels={
+#            'name': '製品名',
+#        },
+#        label='並び順'
+#    )
 
     class Meta:
         model = Item
 #        fields = ('department', 'name', 'sex', 'memo',)
-        fields = ('department', 'name', 'memo',)
+#        fields = ('department', 'name', )
+# 上で指定していればここで指定しなくても表示されるようになるみたい
+        fields = ('department', 'name', 'outer_length_gt', 'outer_length_lt',)
+# Javascriptを埋め込みできないか試行中（2023.05.17）
+        widgets = {
+                                'name': filters.CharFilter(attrs={'placeholder':'記入例：HB-14A','onkeyup':'this.value = this.value.toUpperCase();'}),
+        }

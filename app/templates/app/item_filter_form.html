@@ -1,0 +1,78 @@
+<!-- filterのform -->
+item_filterのfilter.form部分をカスタムしたitem_filter_form.htmlに置き換えています。
+<!-- {{filter.form.as_p}} # （参考）全項目 -->
+<div>
+    {{filter.form.department.label}} <!-- 管理籍 -->
+    {{filter.form.department}} <!-- 管理籍 -->
+</div>
+
+
+<div class="area">
+    <input type="radio" name="tab_name" id="tab1">
+    <label class="tab_class" for="tab1">外寸</label>
+    <div class="content_class">外寸で検索します。（範囲指定）
+
+        <table>
+            <tr>
+                <!--th>{{filter.form.outer_length.label}}</th--> <!-- 外寸長さ -->
+                <th>長さ</th> <!-- 外寸長さ -->
+                <td>{{filter.form.outer_length_gt}}</td>  <!-- 外寸長さ(以上) -->
+                <td>-</td>
+                <td>{{filter.form.outer_length_lt}}</td>  <!-- 外寸長さ(以下) -->
+            </tr>
+            <tr>
+                <!--th>{{filter.form.outer_width.label}}</th--> <!-- 外寸幅 -->
+                <th>幅</th> <!-- 外寸幅 -->
+                <td>{{filter.form.outer_width_gt}}</td>  <!-- 外寸幅(以上) -->
+                <td>-</td>
+                <td>{{filter.form.outer_width_lt}}</td>  <!-- 外寸幅(以下) -->
+            </tr>
+            <tr>
+                <!--th>{{filter.form.outer_height.label}}</th--> <!-- 外寸高さ -->
+                <th>高さ</th> <!-- 外寸高さ -->
+                <td>{{filter.form.outer_height_gt}}</td>  <!-- 外寸高さ(以上) -->
+                <td>-</td>
+                <td>{{filter.form.outer_height_lt}}</td>  <!-- 外寸高さ(以下) -->
+            </tr>
+        </table>
+    </div>
+
+    <input type="radio" name="tab_name" id="tab2">
+    <label class="tab_class" for="tab2">内寸</label>
+    <div class="content_class">内寸で検索します。（範囲指定）
+
+        <table>
+            <tr>
+                <th>{{filter.form.inner_length.label}}</th> <!-- 内寸長さ -->
+                <td>{{filter.form.inner_length_gt}}</td>  <!-- 内寸長さ(以上) -->
+                <td>-</td>
+                <td>{{filter.form.inner_length_lt}}</td>  <!-- 内寸長さ(以下) -->
+            </tr>
+            <tr>
+                <th>{{filter.form.inner_width.label}}</th> <!-- 内寸幅 -->
+                <td>{{filter.form.inner_width_gt}}</td>  <!-- 内寸幅(以上) -->
+                <td>-</td>
+                <td>{{filter.form.inner_width_lt}}</td>  <!-- 内寸幅(以下) -->
+            </tr>
+            <tr>
+                <th>{{filter.form.inner_height.label}}</th> <!-- 内寸高さ -->
+                <td>{{filter.form.inner_height_gt}}</td>  <!-- 内寸高さ(以上) -->
+                <td>-</td>
+                <td>{{filter.form.inner_height_lt}}</td>  <!-- 内寸高さ(以下) -->
+            </tr>
+        </table>
+
+    </div>
+
+    <input type="radio" name="tab_name" id="tab3">
+    <label class="tab_class" for="tab3">製品名</label>
+    <div class="content_class">製品名を部分一致で検索します。
+        <div>
+            {{filter.form.name.label}}  <!-- 製品名 -->
+            {{filter.form.name}}  <!-- 製品名 -->
+        </div>
+        
+    </div>
+
+</div>
+
