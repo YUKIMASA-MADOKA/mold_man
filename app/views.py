@@ -25,7 +25,7 @@ class ItemFilterView(FilterView):
     # queryset = Item.objects.all().order_by('-created_at')
     # queryset = Item.objects.all().order_by('department', 'name' )
     # 表示量が多いと動作が重くなるので先頭300件のみの表示に制限
-    queryset = Item.objects.all()[:300]
+    #queryset = Item.objects.all()[:300]
 
     # 初期値を設定したい2023.04.12 ⇒　検索の初期値は無くても良さそう（検索条件はセッションにキャッシュされるので、そのほうが便利かも）
     #ItemFilter['initial'] = {'department':'沼津'}
