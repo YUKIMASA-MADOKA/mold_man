@@ -1,36 +1,88 @@
-<!-- filterのform -->
+{% comment %}
 item_filterのfilter.form部分をカスタムしたitem_filter_form.htmlに置き換えています。
+「filter.form.as_p」で全項目、「filter.form.name」で製品名の値、「filter.form.name.label」で製品名の見出しを設定
+またformにstyleやscriptを埋め込みするためにdjango-widgets-improvedを使ってattr等を設定しています。
+{% endcomment %}
+
+{% load static widget_tweaks %}
+<!-- filterのform -->
 <!-- {{filter.form.as_p}} # （参考）全項目 -->
+検索条件を指定してください。
 <div>
     {{filter.form.department.label}} <!-- 管理籍 -->
     {{filter.form.department}} <!-- 管理籍 -->
 </div>
 
+<!-- サイズのFrom側入力した時にTo側の値を補完するスクリプト -->
+{% comment %}
+本当はscriptを別にせずにワンライナーでinputタグのattr内に書いてしまいたかったが、
+パラメタ等を含めるのが出来そうもないので単純に関数名だけになるようにした。
+{% endcomment %}
+<script>
+    function outer_length(){    // 外寸長さ
+        var OrgVal = parseInt(document.forms['filter'].elements['outer_length_gt'].value);
+        var AddVal = parseInt(document.forms['add_val'].elements['add_val'].value);
+        document.forms['filter'].elements['outer_length_lt'].value = parseInt(OrgVal) + parseInt(AddVal);
+    }
+    function outer_width(){    // 外寸幅
+        var OrgVal = parseInt(document.forms['filter'].elements['outer_width_gt'].value);
+        var AddVal = parseInt(document.forms['add_val'].elements['add_val'].value);
+        document.forms['filter'].elements['outer_width_lt'].value = parseInt(OrgVal) + parseInt(AddVal);
+    }
+    function outer_height(){    // 外寸高さ
+        var OrgVal = parseInt(document.forms['filter'].elements['outer_height_gt'].value);
+        var AddVal = parseInt(document.forms['add_val'].elements['add_val'].value);
+        document.forms['filter'].elements['outer_height_lt'].value = parseInt(OrgVal) + parseInt(AddVal);
+    }
+    function inner_length(){    // 内寸長さ
+        var OrgVal = parseInt(document.forms['filter'].elements['inner_length_gt'].value);
+        var AddVal = parseInt(document.forms['add_val'].elements['add_val'].value);
+        document.forms['filter'].elements['inner_length_lt'].value = parseInt(OrgVal) + parseInt(AddVal);
+    }
+    function inner_width(){    // 内寸幅
+        var OrgVal = parseInt(document.forms['filter'].elements['inner_width_gt'].value);
+        var AddVal = parseInt(document.forms['add_val'].elements['add_val'].value);
+        document.forms['filter'].elements['inner_width_lt'].value = parseInt(OrgVal) + parseInt(AddVal);
+    }
+    function inner_height(){    // 内寸高さ
+        var OrgVal = parseInt(document.forms['filter'].elements['inner_height_gt'].value);
+        var AddVal = parseInt(document.forms['add_val'].elements['add_val'].value);
+        document.forms['filter'].elements['inner_height_lt'].value = parseInt(OrgVal) + parseInt(AddVal);
+    }
+</script>
 
+<!-- タブ表示用のCSSは、static/app/css/app.cssに追記してあります。 -->
 <div class="area">
     <input type="radio" name="tab_name" id="tab1">
     <label class="tab_class" for="tab1">外寸</label>
-    <div class="content_class">外寸で検索します。（範囲指定）
+    <div class="content_class"><b>外寸で検索します。（範囲指定）</b>
 
         <table>
             <tr>
                 <!--th>{{filter.form.outer_length.label}}</th--> <!-- 外寸長さ -->
                 <th>長さ</th> <!-- 外寸長さ -->
-                <td>{{filter.form.outer_length_gt}}</td>  <!-- 外寸長さ(以上) -->
+                <td>
+                    {#{{filter.form.outer_length_gt}}#}
+                    {%render_field filter.form.outer_length_gt onchange="outer_length()" placeholder="500" %}
+                </td>  <!-- 外寸長さ(以上) -->
                 <td>-</td>
                 <td>{{filter.form.outer_length_lt}}</td>  <!-- 外寸長さ(以下) -->
             </tr>
             <tr>
                 <!--th>{{filter.form.outer_width.label}}</th--> <!-- 外寸幅 -->
                 <th>幅</th> <!-- 外寸幅 -->
-                <td>{{filter.form.outer_width_gt}}</td>  <!-- 外寸幅(以上) -->
+                <td>{#{{filter.form.outer_width_gt}}#}
+                    {%render_field filter.form.outer_width_gt onchange="outer_width()" placeholder="300" %}
+                </td>  <!-- 外寸幅(以上) -->
                 <td>-</td>
                 <td>{{filter.form.outer_width_lt}}</td>  <!-- 外寸幅(以下) -->
             </tr>
             <tr>
                 <!--th>{{filter.form.outer_height.label}}</th--> <!-- 外寸高さ -->
                 <th>高さ</th> <!-- 外寸高さ -->
-                <td>{{filter.form.outer_height_gt}}</td>  <!-- 外寸高さ(以上) -->
+                <td>{#{{filter.form.outer_height_gt}}#}
+                    {%render_field filter.form.outer_height_gt onchange="outer_height()" placeholder="100" %}
+                </td>  <!-- 外寸高さ(以上) -->
                 <td>-</td>
                 <td>{{filter.form.outer_height_lt}}</td>  <!-- 外寸高さ(以下) -->
             </tr>
@@ -39,24 +91,36 @@ item_filterのfilter.form部分をカスタムしたitem_filter_form.htmlに置�
 
     <input type="radio" name="tab_name" id="tab2">
     <label class="tab_class" for="tab2">内寸</label>
-    <div class="content_class">内寸で検索します。（範囲指定）
+    <div class="content_class"><b>内寸で検索します。（範囲指定）</b>
 
         <table>
             <tr>
-                <th>{{filter.form.inner_length.label}}</th> <!-- 内寸長さ -->
-                <td>{{filter.form.inner_length_gt}}</td>  <!-- 内寸長さ(以上) -->
+                <!-- th>{{filter.form.inner_length.label}}</th --> <!-- 内寸長さ -->
+                <th>長さ</th> <!-- 内寸長さ -->
+                <td>
+                    {#{{filter.form.inner_length_gt}}#}
+                    {%render_field filter.form.inner_length_gt onchange="inner_length()" placeholder="500" %}
+                </td>  <!-- 内寸長さ(以上) -->
                 <td>-</td>
                 <td>{{filter.form.inner_length_lt}}</td>  <!-- 内寸長さ(以下) -->
             </tr>
             <tr>
-                <th>{{filter.form.inner_width.label}}</th> <!-- 内寸幅 -->
-                <td>{{filter.form.inner_width_gt}}</td>  <!-- 内寸幅(以上) -->
+                <!-- th>{{filter.form.inner_width.label}}</th --> <!-- 内寸幅 -->
+                <th>幅</th> <!-- 内寸幅 -->
+                <td>
+                    {#{{filter.form.inner_width_gt}}#}
+                    {%render_field filter.form.inner_width_gt onchange="inner_width()" placeholder="300" %}
+                </td>  <!-- 内寸幅(以上) -->
                 <td>-</td>
                 <td>{{filter.form.inner_width_lt}}</td>  <!-- 内寸幅(以下) -->
             </tr>
             <tr>
-                <th>{{filter.form.inner_height.label}}</th> <!-- 内寸高さ -->
-                <td>{{filter.form.inner_height_gt}}</td>  <!-- 内寸高さ(以上) -->
+                <!-- th>{#{{filter.form.inner_height.label}}#}</th --> <!-- 内寸高さ -->
+                <th>深さ</th> <!-- 内寸深さ -->
+                <td>
+                    {#{{filter.form.inner_height_gt}}#}
+                    {%render_field filter.form.inner_height_gt onchange="inner_height()" placeholder="100" %}
+                </td>  <!-- 内寸高さ(以上) -->
                 <td>-</td>
                 <td>{{filter.form.inner_height_lt}}</td>  <!-- 内寸高さ(以下) -->
             </tr>
@@ -66,12 +130,14 @@ item_filterのfilter.form部分をカスタムしたitem_filter_form.htmlに置�
 
     <input type="radio" name="tab_name" id="tab3">
     <label class="tab_class" for="tab3">製品名</label>
-    <div class="content_class">製品名を部分一致で検索します。
+    <div class="content_class"><b>製品名を部分一致で検索します。</b>
         <div>
             {{filter.form.name.label}}  <!-- 製品名 -->
-            {{filter.form.name}}  <!-- 製品名 -->
+            {#{{filter.form.name}}#}  <!-- 製品名 -->
+            {#{%render_field filter.form.name style="text-transform: uppercase" placeholder="{{filter.form.name.label}}" %}#}  <!-- 製品名 -->
+            {%render_field filter.form.name style="text-transform: uppercase" placeholder="BR" %}  <!-- 製品名 -->
         </div>
-        
+※お試しでdjango-widgets-improvedを使ってuppercaseにしていますが、この指定が無くても検索結果は同じになります。        
     </div>
 
 </div>

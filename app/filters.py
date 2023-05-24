@@ -17,7 +17,7 @@ class ItemFilter(FilterSet):
 
     # 外寸（長さ、幅、高さ） 
     # gt ltが付かないFilterは検索には未使用（ラベル名を参照するために定義）
-#    outer_length = filters.NumberRengeFilter()
+    #outer_length_xx = filters.NumericRangeFilter(field_name='outer_length', lookup_expr='100,300')
     outer_length = filters.NumberFilter()
     outer_length_gt = filters.NumberFilter(field_name='outer_length', lookup_expr='gt')
     outer_length_lt = filters.NumberFilter(field_name='outer_length', lookup_expr='lt')
@@ -56,7 +56,4 @@ class ItemFilter(FilterSet):
 #        fields = ('department', 'name', )
 # 上で指定していればここで指定しなくても表示されるようになるみたい
         fields = ('department', 'name', 'outer_length_gt', 'outer_length_lt',)
-# Javascriptを埋め込みできないか試行中（2023.05.17）
-        widgets = {
-                                'name': filters.CharFilter(attrs={'placeholder':'記入例：HB-14A','onkeyup':'this.value = this.value.toUpperCase();'}),
-        }
+#        fields = ('name', 'outer_length_gt', 'outer_length_lt',)

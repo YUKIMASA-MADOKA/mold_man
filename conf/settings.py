@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'debug_toolbar',
     'import_export',
+    'widget_tweaks',
     'app',
     'excelapp1',
 ]
@@ -153,6 +154,9 @@ INTERNAL_IPS = ['127.0.0.1']
 
 # 管理籍の初期値
 MY_DEPARTMENT = '沼津'
+
+# 外寸・内寸計算補完の初期値
+MY_ADDVALUE = 30
 
 # 管理籍の一覧
 DEPARTMENT_CHOICES = (

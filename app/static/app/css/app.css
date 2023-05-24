@@ -24,6 +24,7 @@ input[name="tab_name"] {
 }
 input:checked + .tab_class {
     color: blue;
+    background-color: whitesmoke;
 }
 .content_class {
     display: none;

@@ -5,7 +5,7 @@ from django.core import validators
 # Create your models here.
 
 class Item(models.Model):
-
+# バリデーションなどは中途半端な状態のままです
 #    department = models.CharField(verbose_name='管理籍',max_length=255,choices=DEPARTMENT_CHOICES,default='焼津',)
     department = models.CharField('管理籍',max_length=255,choices=settings.DEPARTMENT_CHOICES,default=settings.MY_DEPARTMENT,)
     is_drawing = models.BooleanField('製品図面',default=True,)

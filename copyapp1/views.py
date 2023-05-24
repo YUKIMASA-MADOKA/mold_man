@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from app.models import Item ,Temp
+import datetime
 
 # Create your views here.
 # --
@@ -8,8 +9,8 @@ from app.models import Item ,Temp
 # --
 
 def index(request):
-    temps = Temp.objects.all()[:500]   # テスト用に先頭500件
-#    temps = Temp.objects.all()
+#    temps = Temp.objects.all()[:500]   # テスト用に先頭500件
+    temps = Temp.objects.all()
     # 初期化（全削除）
     Item.objects.all().delete()
     for temp in temps :
@@ -19,7 +20,7 @@ def index(request):
             is_not_our_molds = yes_no(temp.fc), # 他社金型
             frame_code = temp.fd, # フレーム
             mold_code = temp.fe, # 中型
-            manufacture_date = temp.ff, # 製造年月
+            manufacture_date = is_date(temp.ff), # 製造年月
             name = temp.fg, # 製品名
             molding_machine = temp.fh, # 成型機
             frame_height_moving_side = is_int(temp.fi), # フレーム高さ 移動側
@@ -93,6 +94,13 @@ def yes_no(s):
     else:
         return(False)
 
+def is_date(s):
+    try:
+        s =  datetime.datetime.strptime(s, '%Y-%m-%d')
+    except ValueError:
+        return None
+    else:
+        return s
 
 # -- ここからは（メモ）データの全削除方法など　最終版は削除予定
 # from app.models import Item, Mold

@@ -11,12 +11,24 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form id="filter" method="get">
+{% comment %}
+標準のfilter.formの部分をitem_filter_form.htmlに置き換えています。
+また外寸・内寸の補完値部分は別filter.formの外にしてあります。
+これは検索キーワード以外の値（value）をfilter.formに残さないようにするためで、残ってしまうと「検索を解除」の動きが制御できなくなるためです。
+{% endcomment %}
+
+				<form id="filter" method="get"> <!-- 検索フォームはitem_filter_form.htmlに置換） -->
 					<div class="modal-body">
 						{#{{filter.form|crispy}}#}
 						{% include "./item_filter_form.html" %}
 					</div>
 				</form>
+				<div class="modal-body"> <!-- 外寸・内寸の遊び値（この部分がfilter.form外に） -->
+					外寸・内寸の（To側）加算値
+					<form name="add_val">
+						<input type="number" name="add_val" value="{{ add_value }}">
+					</form>
+				</div>
 				<div class="modal-footer">
 					<a class="btn btn-outline-secondary" data-dismiss="modal">戻る</a>
 					<button type="submit" class="btn btn-outline-secondary" form="filter">検索</button>
@@ -41,6 +53,9 @@
 		<div class="col-12">
 			{% include "./_pagination.html" %}
 		</div>
+	<!-- 検索結果件数を表示 -->
+		{{ count }}件
+		{{ count_message }}
 	</div>
 
 	<div class="row">
