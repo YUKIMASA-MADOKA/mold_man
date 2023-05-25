@@ -84,9 +84,9 @@ def index(request):
         q_inner_height_lt = Q(inner_height__lte=query['inner_height_lt'])
 
     # 検索
-    items = Item.objects.filter(q_department & q_name & q_outer_length_gt
-     & q_outer_length_lt & q_outer_width_gt & q_outer_width_lt & q_outer_height_gt & q_outer_height_lt
-     & q_inner_length_lt & q_inner_width_gt & q_inner_width_lt & q_inner_height_gt & q_inner_height_lt)
+    items = Item.objects.filter(q_department & q_name
+     & q_outer_length_gt & q_outer_length_lt & q_outer_width_gt & q_outer_width_lt & q_outer_height_gt & q_outer_height_lt
+     & q_inner_length_gt & q_inner_length_lt & q_inner_width_gt & q_inner_width_lt & q_inner_height_gt & q_inner_height_lt)
 #    items = Item.objects.all()
     
     i = 10
