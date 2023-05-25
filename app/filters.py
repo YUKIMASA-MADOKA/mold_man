@@ -17,27 +17,28 @@ class ItemFilter(FilterSet):
 
     # 外寸（長さ、幅、高さ） 
     # gt ltが付かないFilterは検索には未使用（ラベル名を参照するために定義）
+    # 以上・以下にするためgt ⇒ gte、lt ⇒ lteに変更（template側はgt ltのまま）
     #outer_length_xx = filters.NumericRangeFilter(field_name='outer_length', lookup_expr='100,300')
     outer_length = filters.NumberFilter()
-    outer_length_gt = filters.NumberFilter(field_name='outer_length', lookup_expr='gt')
-    outer_length_lt = filters.NumberFilter(field_name='outer_length', lookup_expr='lt')
+    outer_length_gt = filters.NumberFilter(field_name='outer_length', lookup_expr='gte')
+    outer_length_lt = filters.NumberFilter(field_name='outer_length', lookup_expr='lte')
     outer_width = filters.NumberFilter()
-    outer_width_gt = filters.NumberFilter(field_name='outer_width', lookup_expr='gt')
-    outer_width_lt = filters.NumberFilter(field_name='outer_width', lookup_expr='lt')
+    outer_width_gt = filters.NumberFilter(field_name='outer_width', lookup_expr='gte')
+    outer_width_lt = filters.NumberFilter(field_name='outer_width', lookup_expr='lte')
     outer_height = filters.NumberFilter()
-    outer_height_gt = filters.NumberFilter(field_name='outer_height', lookup_expr='gt')
-    outer_height_lt = filters.NumberFilter(field_name='outer_height', lookup_expr='lt')
+    outer_height_gt = filters.NumberFilter(field_name='outer_height', lookup_expr='gte')
+    outer_height_lt = filters.NumberFilter(field_name='outer_height', lookup_expr='lte')
 
     # 内寸（長さ、幅、高さ） 
     inner_length = filters.NumberFilter()
-    inner_length_gt = filters.NumberFilter(field_name='inner_length', lookup_expr='gt')
-    inner_length_lt = filters.NumberFilter(field_name='inner_length', lookup_expr='lt')
+    inner_length_gt = filters.NumberFilter(field_name='inner_length', lookup_expr='gte')
+    inner_length_lt = filters.NumberFilter(field_name='inner_length', lookup_expr='lte')
     inner_width = filters.NumberFilter()
-    inner_width_gt = filters.NumberFilter(field_name='inner_width', lookup_expr='gt')
-    inner_width_lt = filters.NumberFilter(field_name='inner_width', lookup_expr='lt')
+    inner_width_gt = filters.NumberFilter(field_name='inner_width', lookup_expr='gte')
+    inner_width_lt = filters.NumberFilter(field_name='inner_width', lookup_expr='lte')
     inner_height = filters.NumberFilter()
-    inner_height_gt = filters.NumberFilter(field_name='inner_height', lookup_expr='gt')
-    inner_height_lt = filters.NumberFilter(field_name='inner_height', lookup_expr='lt')
+    inner_height_gt = filters.NumberFilter(field_name='inner_height', lookup_expr='gte')
+    inner_height_lt = filters.NumberFilter(field_name='inner_height', lookup_expr='lte')
 
 #    order_by = MyOrderingFilter(
 #

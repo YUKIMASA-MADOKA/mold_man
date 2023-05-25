@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.conf import settings
 from app.models import Item
 from datetime import date
+from django.db.models import Q
 
 def index(request):
     """
@@ -20,9 +21,7 @@ def index(request):
     query = request.session.get('query')
 
     sheet = wb['sheet1']
-# 見出しはexcelテンプレート側で定義
-#    sheet['A2'] = '管理籍'
-#    sheet['G3'] = '製品名'
+    # 検索条件を出力
     sheet['C2'] = query['department'] # 管理籍
     sheet['C3'] = query['outer_length_gt']  # 外寸長さ（From）
     sheet['C4'] = query['outer_width_gt']  # 外寸幅（From）
@@ -38,23 +37,56 @@ def index(request):
     sheet['J5'] = query['inner_height_lt']  # 内寸高さ（To）
     sheet['M3'] = query['name'] # 製品名
 
-# 見出しはexcelテンプレート側で定義
-#    sheet['A10'] = '管理籍'
-#    sheet['B10'] = '製品名'
-#    sheet['C10'] = '中型'
-#    sheet['D10'] = '外寸長'
-#    sheet['E10'] = '外寸幅'
-#    sheet['F10'] = '外寸高'
-#    sheet['G10'] = '内寸長'
-#    sheet['H10'] = '内寸幅'
-#    sheet['I10'] = '内寸深'
-#    sheet['J10'] = '蓋'
-#    sheet['K10'] = '蓋付'
-#    sheet['L10'] = '製造年月'
-#    sheet['M10'] = '用途'
-    
-    # contains（部分一致）にすると管理籍もいい感じに抽出されるのでとりあえずif文なしで
-    items = Item.objects.filter(department__contains=query['department'],name__contains=query['name'])
+    #
+    # 検索条件の組み立て
+    #
+    q_department = Q()
+    q_name = Q()
+    q_outer_length_gt = Q()
+    q_outer_length_lt = Q()
+    q_outer_width_gt = Q()
+    q_outer_width_lt = Q()
+    q_outer_height_gt = Q()
+    q_outer_height_lt = Q()
+    q_inner_length_gt = Q()
+    q_inner_length_lt = Q()
+    q_inner_width_gt = Q()
+    q_inner_width_lt = Q()
+    q_inner_height_gt = Q()
+    q_inner_height_lt = Q()
+    if query['department']:
+        q_department = Q(department__contains=query['department'])
+    if query['name']:
+        q_name = Q(name__contains=query['name'])
+    if query['outer_length_gt']:
+        q_outer_length_gt = Q(outer_length__gte=query['outer_length_gt'])
+    if query['outer_length_lt']:
+        q_outer_length_lt = Q(outer_length__lte=query['outer_length_lt'])
+    if query['outer_width_gt']:
+        q_outer_width_gt = Q(outer_width__gte=query['outer_width_gt'])
+    if query['outer_width_lt']:
+        q_outer_width_lt = Q(outer_width__lte=query['outer_width_lt'])
+    if query['outer_height_gt']:
+        q_outer_height_gt = Q(outer_height__gte=query['outer_height_gt'])
+    if query['outer_height_lt']:
+        q_outer_height_lt = Q(outer_height__lte=query['outer_height_lt'])
+    if query['inner_length_gt']:
+        q_inner_length_gt = Q(inner_length__gte=query['inner_length_gt'])
+    if query['inner_length_lt']:
+        q_inner_length_lt = Q(inner_length__lte=query['inner_length_lt'])
+    if query['inner_width_gt']:
+        q_inner_width_gt = Q(inner_width__gte=query['inner_width_gt'])
+    if query['inner_width_lt']:
+        q_inner_width_lt = Q(inner_width__lte=query['inner_width_lt'])
+    if query['inner_height_gt']:
+        q_inner_height_gt = Q(inner_height__gte=query['inner_height_gt'])
+    if query['inner_height_lt']:
+        q_inner_height_lt = Q(inner_height__lte=query['inner_height_lt'])
+
+    # 検索
+    items = Item.objects.filter(q_department & q_name & q_outer_length_gt
+     & q_outer_length_lt & q_outer_width_gt & q_outer_width_lt & q_outer_height_gt & q_outer_height_lt
+     & q_inner_length_lt & q_inner_width_gt & q_inner_width_lt & q_inner_height_gt & q_inner_height_lt)
 #    items = Item.objects.all()
     
     i = 10
