@@ -12,8 +12,8 @@
 }
 .tab_class {
     width: calc(100%/3);    /* タブ数が3つなので */
-    height: 50px;
-    line-height: 50px;
+    height: 35px;
+    line-height: 35px;
     text-align: center;
     display: block;
     float: left;
@@ -23,8 +23,8 @@ input[name="tab_name"] {
     display: none;
 }
 input:checked + .tab_class {
-    color: blue;
-    background-color: whitesmoke;
+    color: white;
+    background-color: dimgray;
 }
 .content_class {
     display: none;

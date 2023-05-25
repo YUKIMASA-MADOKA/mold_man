@@ -23,9 +23,6 @@ class ItemFilterView(FilterView):
     # queryset = Item.objects.all().order_by('-created_at')
     # queryset = Item.objects.all().order_by('department', 'name' )[:100]
 
-    # 初期値を設定したい2023.04.12 ⇒　検索の初期値は無くても良さそう（検索条件はセッションにキャッシュされるので、そのほうが便利かも）
-    #ItemFilter['initial'] = {'department':'沼津'}
-
     # django-filter用設定
     filterset_class = ItemFilter
     strict = False
@@ -55,10 +52,9 @@ class ItemFilterView(FilterView):
          'outer_length_gt', 'outer_length_lt', 'outer_width_gt', 'outer_width_lt', 'outer_height_gt', 'outer_height_lt'
          'inner_length_gt', 'inner_length_lt', 'inner_width_gt', 'inner_width_lt', 'inner_height_gt', 'inner_height_lt']
         for key in keys:
-            word = self.request.GET.get(key)
-            if word:
+            if (self.request.GET.get(key)):
                 cnt = cnt + 1
-        # 検索項目がひとつも指定されていない場合は先頭100件だけに
+        # 検索項目がひとつも指定されていない場合は先頭100件だけに（全件表示すると画面描画に時間がかかるため）
         if cnt == 0:
             self.queryset = Item.objects.all()[:100]
 
@@ -66,19 +62,60 @@ class ItemFilterView(FilterView):
 
     #
     # 検索結果の件数を画面表示、多すぎる場合は条件見直しをメッセージ
-    # ※メッセージのみで制約は無し
+    # ※多すぎる場合はメッセージだけで制約は無し
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
 #        count = self.queryset.count()
         count = self.filterset.qs.count()
         ctx['add_value'] = settings.MY_ADDVALUE
 
-        # page_title を追加する
+        # 検索結果が多い場合のメッセージおよび検索結果件数の表示を追加する
         if count > 500 :
             ctx['count_message'] = '：対象件数が多すぎます。検索条件を見直してください。'
         else:
             ctx['count_message'] = ''
         ctx['count'] = count
+
+        # 検索条件に指定された項目を識別できるように見出しに色付け
+        ctx['fil_department'] = 0
+        ctx['fil_name'] = 0
+        ctx['fil_outer_length'] = 0
+        ctx['fil_outer_width'] = 0
+        ctx['fil_outer_height'] = 0
+        ctx['fil_inner_length'] = 0
+        ctx['fil_inner_width'] = 0
+        ctx['fil_inner_height'] = 0
+
+        if (self.request.GET.get('department')):
+            ctx['fil_department'] = 1
+        if (self.request.GET.get('name')):
+            ctx['fil_name'] = 1
+
+        if (self.request.GET.get('outer_length_gt')):
+            ctx['fil_outer_length'] = 1
+        if (self.request.GET.get('outer_length_lt')):
+            ctx['fil_outer_length'] = 1
+        if (self.request.GET.get('outer_width_gt')):
+            ctx['fil_outer_width'] = 1
+        if (self.request.GET.get('outer_width_lt')):
+            ctx['fil_outer_width'] = 1
+        if (self.request.GET.get('outer_height_gt')):
+            ctx['fil_outer_height'] = 1
+        if (self.request.GET.get('outer_height_lt')):
+            ctx['fil_outer_height'] = 1
+
+        if (self.request.GET.get('inner_length_gt')):
+            ctx['fil_inner_length'] = 1
+        if (self.request.GET.get('inner_length_lt')):
+            ctx['fil_inner_length'] = 1
+        if (self.request.GET.get('inner_width_gt')):
+            ctx['fil_inner_width'] = 1
+        if (self.request.GET.get('inner_width_lt')):
+            ctx['fil_inner_width'] = 1
+        if (self.request.GET.get('inner_height_gt')):
+            ctx['fil_inner_height'] = 1
+        if (self.request.GET.get('inner_height_lt')):
+            ctx['fil_inner_height'] = 1
 
         return ctx
 

@@ -63,15 +63,15 @@
 			<table class="table table-striped table table-bordered ">
 				<thead>
 					<tr>
-						<th>管理籍</th>
-						<th>製品名</th>
+						{% if fil_department %}<th style="color:white; background-color:dimgray">管理籍</th> {% else %} <th>管理籍</th>  {% endif %}
+						{% if fil_name %}<th style="color:white; background-color:dimgray">製品名</th> {% else %} <th>製品名</th>  {% endif %}
 						<th>中型</th>
-						<th>外寸長</th>
-						<th>外寸幅</th>
-						<th>外寸高</th>
-						<th>内寸長</th>
-						<th>内寸幅</th>
-						<th>内寸深</th>
+						{% if fil_outer_length %}<th style="color:white; background-color:dimgray">外寸長</th> {% else %} <th>外寸長</th>  {% endif %}
+						{% if fil_outer_width %}<th style="color:white; background-color:dimgray">外寸幅</th> {% else %} <th>外寸幅</th>  {% endif %}
+						{% if fil_outer_height %}<th style="color:white; background-color:dimgray">外寸高</th> {% else %} <th>外寸高</th>  {% endif %}
+						{% if fil_inner_length %}<th style="color:white; background-color:dimgray">内寸長</th> {% else %} <th>内寸長</th>  {% endif %}
+						{% if fil_inner_width %}<th style="color:white; background-color:dimgray">内寸幅</th> {% else %} <th>内寸幅</th>  {% endif %}
+						{% if fil_inner_height %}<th style="color:white; background-color:dimgray">内寸高</th> {% else %} <th>内寸高</th>  {% endif %}
 						<th>蓋</th>
 						<th>蓋付</th>
 						<th>製造年月</th>
