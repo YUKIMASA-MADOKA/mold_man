@@ -22,6 +22,7 @@ from django.conf import settings # debug_toolbarで追加
 urlpatterns = [
     path('excelapp1/', include('excelapp1.urls')),   # Excel出力app    
     path('copyapp1/', include('copyapp1.urls')),   # データコピーapp    
+    path('copyapp2/', include('copyapp2.urls')),   # データコピーapp    
     path('admin/', admin.site.urls),
     path('', include('app.urls')),
 ]

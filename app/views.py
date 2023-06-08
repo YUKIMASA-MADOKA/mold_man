@@ -54,7 +54,7 @@ class ItemFilterView(FilterView):
         for key in keys:
             if (self.request.GET.get(key)):
                 cnt = cnt + 1
-        # 検索項目がひとつも指定されていない場合は先頭100件だけに（全件表示すると画面描画に時間がかかるため）
+        # 検索項目がひとつも指定されていない場合は先頭100件だけに（全件表示すると画面描画に時間がかかるため）、100では無く0でもよいかも
         if cnt == 0:
             self.queryset = Item.objects.all()[:100]
 
